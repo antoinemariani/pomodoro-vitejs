@@ -2,7 +2,7 @@
 import './style.css';
 // import javascriptLogo from './javascript.svg';
 // import { setupCounter } from './counter.js';
-import { setupCounter } from './pomodoro-app.js';
+import { breakSettings, focusSettings, setupCounter } from './pomodoro-app.js';
 
 document.querySelector('#app').innerHTML = `
   <div>
@@ -40,3 +40,5 @@ document.querySelector('#app').innerHTML = `
 `;
 
 setupCounter(document.querySelector('#counter'));
+focusSettings(document.querySelector('#focus'));
+breakSettings(document.querySelector('#break'));

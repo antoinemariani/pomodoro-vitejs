@@ -1,3 +1,4 @@
+/* eslint-disable operator-linebreak */
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable require-jsdoc */
 export function setupCounter(element) {
@@ -8,10 +9,11 @@ export function setupCounter(element) {
   // Counter starter
   const startCounter = (el) => {
     const minutesDisplay = el.querySelector('#minutes');
+    minutesDisplay.innerText = document.querySelector('#set-focus').innerText;
     const secondsDisplay = el.querySelector('#seconds');
     const pauseButton = el.querySelector('#pause');
-    let minutes = 24;
-    let seconds = 12;
+    let minutes = parseInt(minutesDisplay.innerText, 10);
+    let seconds = parseInt(secondsDisplay.innerText, 10);
     let isPaused = false;
 
     // Timer function - setup
@@ -80,4 +82,63 @@ export function setupCounter(element) {
     event.currentTarget.innerText = '';
     startCounter(element);
   });
+}
+
+export function focusSettings(focusSection) {
+  const minutesDisplay = document.querySelector('#minutes');
+  const focusMinutes = focusSection.querySelector('#set-focus');
+  const plus = focusSection.querySelector('#plus-focus');
+  const minus = focusSection.querySelector('#minus-focus');
+
+  if (
+    parseInt(focusMinutes.innerText, 10) > 1 &&
+    parseInt(focusMinutes.innerText, 10) < 60
+  ) {
+    plus.addEventListener('click', () => {
+      if (plus.getAttribute('disabled')) {
+        plus.removeAttribute('disabled');
+      }
+      focusMinutes.innerText = parseInt(focusMinutes.innerText, 10) + 1;
+      minutesDisplay.innerText = focusMinutes.innerText;
+    });
+
+    minus.addEventListener('click', () => {
+      if (minus.getAttribute('disabled')) {
+        minus.removeAttribute('disabled');
+      }
+      focusMinutes.innerText = parseInt(focusMinutes.innerText, 10) - 1;
+      minutesDisplay.innerText = focusMinutes.innerText;
+    });
+  }
+  if (parseInt(focusMinutes.innerText, 10) === 1) {
+    minus.setAttribute('disabled', 'true');
+  }
+  if (parseInt(focusMinutes.innerText, 10) === 60) {
+    plus.setAttribute('disabled', 'true');
+  }
+}
+
+export function breakSettings(breakSection) {
+  const breakMinutes = breakSection.querySelector('#set-break');
+  const plus = breakSection.querySelector('#plus-break');
+  const minus = breakSection.querySelector('#minus-break');
+
+  if (
+    parseInt(breakMinutes.innerText, 10) > 1 &&
+    parseInt(breakMinutes.innerText, 10) < 30
+  ) {
+    plus.addEventListener('click', () => {
+      breakMinutes.innerText = parseInt(breakMinutes.innerText, 10) + 1;
+    });
+
+    minus.addEventListener('click', () => {
+      breakMinutes.innerText = parseInt(breakMinutes.innerText, 10) - 1;
+    });
+  }
+  if (parseInt(breakMinutes.innerText, 10) === 1) {
+    minus.removeEventListener('click');
+  }
+  if (parseInt(breakMinutes.innerText, 10) === 30) {
+    plus.removeEventListener('click');
+  }
 }
