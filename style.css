@@ -65,6 +65,39 @@ h1 {
   background-color: #535bf2;
 }
 
+#reset {
+  background-color: grey;
+}
+
+#btn-box {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+  gap: 16px;
+}
+
+#settings {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+  gap: 16px;
+}
+
+#focus,
+#break {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.label {
+  font-size: 0.8em;
+  font-weight: 300;
+  margin: 0 auto;
+  padding: 2px;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
