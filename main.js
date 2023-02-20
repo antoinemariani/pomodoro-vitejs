@@ -13,7 +13,8 @@ document.querySelector("#app").innerHTML = `
       <span id="minutes">25</span>
       <span id="colon">:</span>
       <span id="seconds">00</span>
-      <div class="button">Start</div>
+      <div class="button" id="start">Start</div>
+      <div id="pause"></div>
     </div>
   </div>
 `;
