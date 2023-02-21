@@ -38,6 +38,8 @@ export function setupCounter(element) {
     // Timer launcher
     let timer = timerOn;
 
+    // Break (post-focus) timer
+
     // Pause Button - setup + trigger
     pauseButton.classList.add('button');
     pauseButton.innerText = 'Pause';
