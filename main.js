@@ -9,7 +9,7 @@ document.querySelector('#app').innerHTML = `
     <a href='https://vitejs.dev' target='_blank'>
       <img src='/vite.svg' class='logo' alt='Vite logo' />
     </a>
-    <h1>Hello Pomodoro!</h1>
+    <h1 id='title'>Welcome to Pomodoro!</h1>
     <div id='counter'>
       <span id='minutes'>25</span>
       <span id='colon'>:</span>
@@ -17,7 +17,7 @@ document.querySelector('#app').innerHTML = `
       <div id='btn-box'>
         <div id='start'></div>
         <div id='pause'></div>
-        <div class='button' id='reset'>Reset</div>
+        <button class='button' id='reset'>Reset</button>
       </div>
       <div id='settings'>
         <div id='focus'>
