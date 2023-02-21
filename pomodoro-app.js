@@ -38,11 +38,9 @@ export function setupCounter(element) {
     // Timer launcher
     let timer = timerOn;
 
-    // Pause Button - setup
+    // Pause Button - setup + trigger
     pauseButton.classList.add('button');
     pauseButton.innerText = 'Pause';
-
-    // Pause Button - trigger
     pauseButton.addEventListener('click', () => {
       isPaused = !isPaused;
       if (isPaused) {
@@ -51,11 +49,24 @@ export function setupCounter(element) {
         clearInterval(timer);
       } else {
         pauseButton.innerText = 'Pause';
-        timer = timerOn;
+        timer = setInterval(() => {
+          mainTitle.innerText = 'Focus!';
+          if (seconds === 0) {
+            minutes -= 1;
+            seconds = 60;
+          }
+          seconds -= 1;
+          if (minutes === 0 && seconds === 0) {
+            mainTitle.innerText = 'Break!';
+            clearInterval(timerOn);
+          }
+          minutesDisplay.innerText = `${minutes < 10 ? '0' : ''}${minutes}`;
+          secondsDisplay.innerText = `${seconds < 10 ? '0' : ''}${seconds}`;
+        }, 1000);
       }
     });
 
-    // Reset Button
+    // Reset Button - setup + trigger
     const resetButton = element.querySelector('#reset');
     resetButton.addEventListener('click', () => {
       clearInterval(timer);
@@ -80,6 +91,7 @@ export function setupCounter(element) {
   });
 }
 
+// Focus time settings
 export function focusSettings(focusSection) {
   const minutesDisplay = document.querySelector('#minutes');
   const plus = focusSection.querySelector('#plus-focus');
@@ -101,6 +113,7 @@ export function focusSettings(focusSection) {
   minus.addEventListener('click', () => activeButton(minus));
 }
 
+// Break (post-focus) time settings
 export function breakSettings(breakSection) {
   const plus = breakSection.querySelector('#plus-break');
   const minus = breakSection.querySelector('#minus-break');

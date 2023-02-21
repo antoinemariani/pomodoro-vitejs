@@ -6,9 +6,10 @@ import { breakSettings, focusSettings, setupCounter } from './pomodoro-app.js';
 
 document.querySelector('#app').innerHTML = `
   <div>
-    <a href='https://vitejs.dev' target='_blank'>
-      <img src='/vite.svg' class='logo' alt='Vite logo' />
+    <a href='https://github.com/antoinemariani' target='_blank'>
+      <i class="fa-solid fa-pizza-slice fa-2xl" style="color:red;"></i>
     </a>
+
     <h1 id='title'>Welcome to Pomodoro!</h1>
     <div id='counter'>
       <span id='minutes'>25</span>
