@@ -10,6 +10,7 @@ export function setupCounter(element) {
   minutesDisplay.innerText = document.querySelector('#set-focus').innerText;
   const secondsDisplay = element.querySelector('#seconds');
   const pauseButton = element.querySelector('#pause');
+  pauseButton.setAttribute('style', 'display: none;');
   let minutes = parseInt(minutesDisplay.innerText, 10);
   let seconds = parseInt(secondsDisplay.innerText, 10);
 
@@ -18,6 +19,28 @@ export function setupCounter(element) {
     minutes = parseInt(minutesDisplay.innerText, 10);
     seconds = parseInt(secondsDisplay.innerText, 10);
     let isPaused = false;
+
+    // Reset Button - setup + trigger
+    const resetButton = element.querySelector('#reset');
+    const resetFunction = (timer) => {
+      document.querySelector('#counter-box').removeAttribute('style');
+      pauseButton.removeAttribute('style');
+      resetButton.innerText = 'Reset';
+      if (timer) {
+        clearInterval(timer);
+      }
+      mainTitle.innerText = 'Welcome to Pomodoro!';
+      minutes = document.querySelector('#set-focus').innerText;
+      seconds = 0;
+      minutesDisplay.innerText = `${minutes < 10 ? '0' : ''}${minutes}`;
+      secondsDisplay.innerText = `${seconds < 10 ? '0' : ''}${seconds}`;
+      pauseButton.classList.remove('button');
+      pauseButton.setAttribute('style', 'display: none;');
+      pauseButton.innerText = '';
+      startButton.removeAttribute('style');
+      startButton.classList.add('button');
+      startButton.innerText = 'Start';
+    };
 
     // Break (post-focus) timer
     const startBreak = () => {
@@ -37,6 +60,8 @@ export function setupCounter(element) {
         seconds -= 1;
         if (minutes === 0 && seconds === 0) {
           clearInterval(breakOn);
+          mainTitle.innerText = 'Pause over. New session?';
+          resetButton.innerText = 'Focus again';
         }
         minutesDisplay.innerText = `${minutes < 10 ? '0' : ''}${minutes}`;
         secondsDisplay.innerText = `${seconds < 10 ? '0' : ''}${seconds}`;
@@ -45,7 +70,7 @@ export function setupCounter(element) {
 
     // Timer function - setup
     const timerOn = setInterval(() => {
-      mainTitle.innerText = 'Focus!';
+      mainTitle.innerText = 'Focus time';
       if (seconds === 0) {
         minutes -= 1;
         seconds = 60;
@@ -53,6 +78,7 @@ export function setupCounter(element) {
       seconds -= 1;
       if (minutes === 0 && seconds === 0) {
         clearInterval(timerOn);
+        pauseButton.setAttribute('style', 'display: none;');
         startBreak();
       }
       minutesDisplay.innerText = `${minutes < 10 ? '0' : ''}${minutes}`;
@@ -74,7 +100,7 @@ export function setupCounter(element) {
       } else {
         pauseButton.innerText = 'Pause';
         timer = setInterval(() => {
-          mainTitle.innerText = 'Focus!';
+          mainTitle.innerText = 'Focus time';
           if (seconds === 0) {
             minutes -= 1;
             seconds = 60;
@@ -90,28 +116,18 @@ export function setupCounter(element) {
       }
     });
 
-    // Reset Button - setup + trigger
-    const resetButton = element.querySelector('#reset');
     resetButton.addEventListener('click', () => {
-      document.querySelector('#counter-box').removeAttribute('style');
-      clearInterval(timer);
-      mainTitle.innerText = 'Welcome to Pomodoro!';
-      minutes = document.querySelector('#set-focus').innerText;
-      seconds = 0;
-      minutesDisplay.innerText = `${minutes < 10 ? '0' : ''}${minutes}`;
-      secondsDisplay.innerText = `${seconds < 10 ? '0' : ''}${seconds}`;
-      pauseButton.classList.remove('button');
-      pauseButton.innerText = '';
-      startButton.classList.add('button');
-      startButton.innerText = 'Start';
+      resetFunction(timer);
     });
   };
 
   // Counter initializer
   startButton.addEventListener('click', (event) => {
     event.currentTarget.classList.toggle('button');
+    event.currentTarget.setAttribute('style', 'display: none;');
     // eslint-disable-next-line no-param-reassign
     event.currentTarget.innerText = '';
+    event.currentTarget.nextElementSibling.removeAttribute('style');
     startCounter();
   });
 }
