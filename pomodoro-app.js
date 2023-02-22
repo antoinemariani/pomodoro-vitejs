@@ -19,6 +19,30 @@ export function setupCounter(element) {
     seconds = parseInt(secondsDisplay.innerText, 10);
     let isPaused = false;
 
+    // Break (post-focus) timer
+    const startBreak = () => {
+      mainTitle.innerText = 'Break!';
+      const audio = new Audio('sound.mp3');
+      audio.play();
+      document
+        .querySelector('#counter-box')
+        .setAttribute('style', 'color: green;');
+      minutes = parseInt(document.querySelector('#set-break').innerText, 10);
+      seconds = 0;
+      const breakOn = setInterval(() => {
+        if (seconds === 0) {
+          minutes -= 1;
+          seconds = 60;
+        }
+        seconds -= 1;
+        if (minutes === 0 && seconds === 0) {
+          clearInterval(breakOn);
+        }
+        minutesDisplay.innerText = `${minutes < 10 ? '0' : ''}${minutes}`;
+        secondsDisplay.innerText = `${seconds < 10 ? '0' : ''}${seconds}`;
+      }, 1000);
+    };
+
     // Timer function - setup
     const timerOn = setInterval(() => {
       mainTitle.innerText = 'Focus!';
@@ -28,8 +52,8 @@ export function setupCounter(element) {
       }
       seconds -= 1;
       if (minutes === 0 && seconds === 0) {
-        mainTitle.innerText = 'Break!';
         clearInterval(timerOn);
+        startBreak();
       }
       minutesDisplay.innerText = `${minutes < 10 ? '0' : ''}${minutes}`;
       secondsDisplay.innerText = `${seconds < 10 ? '0' : ''}${seconds}`;
@@ -37,8 +61,6 @@ export function setupCounter(element) {
 
     // Timer launcher
     let timer = timerOn;
-
-    // Break (post-focus) timer
 
     // Pause Button - setup + trigger
     pauseButton.classList.add('button');
@@ -59,8 +81,8 @@ export function setupCounter(element) {
           }
           seconds -= 1;
           if (minutes === 0 && seconds === 0) {
-            mainTitle.innerText = 'Break!';
             clearInterval(timerOn);
+            startBreak();
           }
           minutesDisplay.innerText = `${minutes < 10 ? '0' : ''}${minutes}`;
           secondsDisplay.innerText = `${seconds < 10 ? '0' : ''}${seconds}`;
@@ -71,6 +93,7 @@ export function setupCounter(element) {
     // Reset Button - setup + trigger
     const resetButton = element.querySelector('#reset');
     resetButton.addEventListener('click', () => {
+      document.querySelector('#counter-box').removeAttribute('style');
       clearInterval(timer);
       mainTitle.innerText = 'Welcome to Pomodoro!';
       minutes = document.querySelector('#set-focus').innerText;

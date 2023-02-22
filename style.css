@@ -43,7 +43,7 @@ h1 {
   text-align: center;
 }
 
-#counter > span {
+#counter-box > span {
   font-size: 6.2em;
   line-height: 1.1;
   margin: 0;

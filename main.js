@@ -12,9 +12,11 @@ document.querySelector('#app').innerHTML = `
 
     <h1 id='title'>Welcome to Pomodoro!</h1>
     <div id='counter'>
-      <span id='minutes'>25</span>
-      <span id='colon'>:</span>
-      <span id='seconds'>00</span>
+      <div id='counter-box'>
+        <span id='minutes'>25</span>
+        <span id='colon'>:</span>
+        <span id='seconds'>00</span>
+      </div>
       <div id='btn-box'>
         <div id='start'></div>
         <div id='pause'></div>
