@@ -2,10 +2,14 @@
 import './style.css';
 // import javascriptLogo from './javascript.svg';
 // import { setupCounter } from './counter.js';
-import { breakSettings, focusSettings, setupCounter } from './pomodoro-app.js';
+import {
+  breakSettings,
+  focusSettings,
+  setupCounter,
+  backgroundSettings,
+} from './pomodoro-app';
 
 document.querySelector('#app').innerHTML = `
-  <div>
     <a href='https://github.com/antoinemariani' target='_blank'>
       <i class="fa-solid fa-pizza-slice fa-2xl" style="color:red;"></i>
     </a>
@@ -39,9 +43,9 @@ document.querySelector('#app').innerHTML = `
         </div>
       </div>
     </div>
-  </div>
 `;
 
 setupCounter(document.querySelector('#counter'));
 focusSettings(document.querySelector('#focus'));
 breakSettings(document.querySelector('#break'));
+backgroundSettings();

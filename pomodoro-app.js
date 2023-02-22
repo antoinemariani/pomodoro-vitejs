@@ -172,3 +172,20 @@ export function breakSettings(breakSection) {
   plus.addEventListener('click', () => activeButton(plus));
   minus.addEventListener('click', () => activeButton(minus));
 }
+
+// Make a function to let the user choose the background color
+export function backgroundSettings() {
+  const background = document.querySelector('body');
+  const colorPicker = document.createElement('input');
+  colorPicker.setAttribute('type', 'color');
+  colorPicker.setAttribute('id', 'color-picker');
+  colorPicker.setAttribute('value', '#EBD6CB');
+  background.style.backgroundColor = colorPicker.value;
+  document
+    .querySelector('#bg-settings')
+    .insertAdjacentElement('beforeend', colorPicker);
+
+  colorPicker.addEventListener('change', (event) => {
+    background.style.backgroundColor = event.currentTarget.value;
+  });
+}
