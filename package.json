@@ -2,6 +2,7 @@
   "name": "pomodoro-vitejs",
   "private": true,
   "version": "0.0.0",
+  "homepage": "www.amariani.fr",
   "type": "module",
   "scripts": {
     "dev": "vite",
